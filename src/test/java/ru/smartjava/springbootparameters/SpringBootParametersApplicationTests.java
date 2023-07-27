@@ -28,10 +28,14 @@ class SpringBootParametersApplicationTests {
             .withExposedPorts(8081);
 
     @Test
-    void contextLoads() {
+    void devTest() {
         ResponseEntity<String> forFirstEntity = restTemplate.getForEntity("http://localhost:" + myAppDev.getMappedPort(8080) + "/profile", String.class);
 //        System.out.println(forFirstEntity.getBody());
         Assertions.assertTrue(Objects.requireNonNull(forFirstEntity.getBody()).contains("is dev"));
+    }
+
+    @Test
+    void prodTest() {
         ResponseEntity<String> forSecondEntity = restTemplate.getForEntity("http://localhost:" + myAppProd.getMappedPort(8081) + "/profile", String.class);
 //        System.out.println(forSecondEntity.getBody());
         Assertions.assertTrue(Objects.requireNonNull(forSecondEntity.getBody()).contains("is production"));
